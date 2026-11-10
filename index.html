@@ -5,11 +5,14 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/logo-32.png">
 <link rel="apple-touch-icon" href="assets/logo-180.png">
 <meta property="og:title" content="อ่านเป๊ะ Arnpe"><meta property="og:description" content="ตัวช่วยเตรียมข้อความไทยก่อนแปลงเสียง AI"><meta property="og:image" content="assets/logo-512.png">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; manifest-src 'self'; worker-src 'self'">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f766e">
 <meta name="referrer" content="no-referrer">
 <meta name="copyright" content="© 2026 อ่านเป๊ะ Arnpe สงวนลิขสิทธิ์">
 <script>if(window.top!==window.self){try{window.top.location=window.self.location}catch(e){document.documentElement.innerHTML=''}}</script>
 <script>(function(){try{var t=localStorage.getItem('kv_theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}})()</script>
+<script>try{if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}}catch(e){}</script>
 </head><body>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">

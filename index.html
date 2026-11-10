@@ -70,6 +70,9 @@ mark.sel{outline:2px solid var(--ink);outline-offset:1px}
 .tcard img{width:96px;height:96px;object-fit:contain;align-self:center}
 .tcard h3{margin:0;font-size:1.25em}
 .tfoot{display:flex;justify-content:space-between;gap:8px;margin-top:4px}
+.sup{flex-direction:row;align-items:center;gap:12px;flex-wrap:wrap}
+.sup>div{flex:1 1 14em}
+.sup .btn{display:inline-block;padding:8px 14px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:700;text-decoration:none}
 mark.off{background:transparent;color:inherit;outline:1.5px dashed var(--off);outline-offset:0}
 .small{font-size:.85rem;color:var(--muted)}
 table{width:100%;border-collapse:collapse;font-size:.9rem}
@@ -309,6 +312,11 @@ details.sec>summary{display:flex;align-items:center;gap:12px;font-size:1.05rem}
     <div class="row" style="justify-content:flex-start"><button id="fbCopy" type="button">คัดลอกข้อความแจ้ง</button><button id="fbSend" type="button" hidden>เปิดฟอร์มส่ง</button></div>
     <div class="small msg" id="fbMsg" role="status"></div>
   </details>
+  <div class="panel sup" id="support">
+    <img src="assets/st_love.webp" alt="" width="56" height="56">
+    <div><b>สนับสนุนผู้พัฒนา</b><div class="small">เครื่องมือนี้ใช้ฟรีและจะฟรีต่อไป ถ้าช่วยให้งานคุณง่ายขึ้นและอยากเลี้ยงกาแฟสักแก้ว กดได้ที่ปุ่มนี้ ไม่บังคับครับ</div></div>
+    <a class="btn" href="https://paypal.me/kritaudio" target="_blank" rel="noopener noreferrer">สนับสนุนผ่าน PayPal</a>
+  </div>
   <p class="small"><a href="words.html">รายการคำที่ AI อ่านผิดบ่อย (ชุมชนช่วยกันเพิ่ม)</a> · พจนานุกรมหลักมี <span id="lexN"></span> คำ รวบรวมจากความรู้ภาษาไทย ไม่ได้ตรวจกับเสียงจริงทุกคำ ชื่อต่างชาติหลายชื่อสะกดไทยโดยผู้จัดทำเอง ถ้าของคุณต่างออกไป ให้ใส่ในพจนานุกรมของฉัน ซึ่งมีลำดับก่อนเสมอ</p>
 </div>
 

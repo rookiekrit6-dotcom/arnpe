@@ -1,8 +1,14 @@
 Copyright (c) 2026 อ่านเป๊ะ Arnpe (rookiekrit6-dotcom). All rights reserved.
 
-ห้ามคัดลอก ดัดแปลง เผยแพร่ซ้ำ หรือนำโค้ด พจนานุกรม และรูปภาพในที่เก็บนี้ไปใช้เชิงพาณิชย์
+ห้ามคัดลอก ดัดแปลง เผยแพร่ซ้ำ หรือนำโค้ดและรูปภาพในที่เก็บนี้ไปใช้เชิงพาณิชย์
 โดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษรจากเจ้าของ การเข้าชมและใช้งานเว็บไซต์ตามปกติได้รับอนุญาต
 
 Unauthorized copying, modification, redistribution or commercial reuse of the code,
 dictionary data and images in this repository is prohibited without written permission.
 Normal use of the website is permitted.
+
+ข้อยกเว้น: รายการคำและคำอ่านที่แสดงในหน้า words.html (เฉพาะข้อมูลคำ -> คำอ่าน) ใช้ได้ฟรี
+คัดลอกและนำไปใช้ต่อได้ โดยโปรดให้เครดิต "อ่านเป๊ะ Arnpe" ส่วนโค้ดและรูปภาพยังสงวนลิขสิทธิ์
+
+Exception: the word-to-reading list shown on words.html (data only) may be used and
+copied freely with credit to "Arnpe". Code and images remain all rights reserved.

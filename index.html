@@ -67,10 +67,10 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;background:linear-grad
 .brand{display:flex;gap:14px;align-items:flex-start}
 .brand img.mascot{width:84px;height:auto;flex:none;filter:drop-shadow(0 3px 6px rgba(15,118,110,.25))}
 .brand .lead{margin-top:4px}
-#theme::before,#dictExport::before,#dictImport::before,#dictCopy::before,#copy::before,#sample::before,#sample2::before,#allHi::before,#profNew::before,#profDel::before,#hNames::before,details.panel>summary::before,#hFound::before{content:"";display:inline-block;width:18px;height:18px;margin-right:6px;vertical-align:-4px;background:center/contain no-repeat}
+#theme::before,#dictExport::before,#dictImport::before,#dictCopy::before,#copy::before,#sample::before,#sample2::before,#allHi::before,#profNew::before,#profDel::before,#__x::before{content:"";display:inline-block;width:18px;height:18px;margin-right:6px;vertical-align:-4px;background:center/contain no-repeat}
 #copy::before{background-image:url(assets/ic_copy.webp)}
 #sample::before,#sample2::before{background-image:url(assets/ic_sample.webp)}
-#allHi::before,#hFound::before{background-image:url(assets/ic_settings.webp)}
+#allHi::before{background-image:url(assets/ic_settings.webp)}
 #profNew::before{background-image:url(assets/ic_paste.webp)}
 #profDel::before{background-image:url(assets/ic_clear.webp)}
 #dictExport::before{background-image:url(assets/ic_export.webp)}
@@ -82,8 +82,6 @@ header{position:relative}
 #theme{position:absolute;top:0;right:0}
 @media(max-width:620px){#theme{position:static;margin:0 0 8px;align-self:flex-start}header{display:flex;flex-direction:column}}
 .msg{min-height:1.4em}
-#hNames::before{background-image:url(assets/ic_names.webp)}
-details.panel>summary::before{background-image:url(assets/ic_dict.webp)}
 .stk{position:fixed;right:16px;bottom:16px;width:132px;height:auto;z-index:5;pointer-events:none;animation:pop .35s ease-out}
 .stk[hidden]{display:none}
 @keyframes pop{from{transform:scale(.5) rotate(-8deg);opacity:0}to{transform:none;opacity:1}}
@@ -92,6 +90,27 @@ details.panel>summary::before{background-image:url(assets/ic_dict.webp)}
 .empty img{width:72px;height:auto}
 @media (prefers-reduced-motion:reduce){.stk{animation:none}}
 @media(max-width:520px){.brand img.mascot{width:60px}}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:700px){.steps{grid-template-columns:1fr}}
+.step{display:flex;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.step img{height:64px;width:auto;flex:none}
+.step .t{display:block;font-weight:700;font-size:1rem}
+.step .n{display:inline-grid;place-items:center;width:1.55em;height:1.55em;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-size:.85rem;margin-right:6px}
+.step span.d{color:var(--muted);font-size:.85rem}
+.sec{border-left:6px solid var(--c,var(--accent))!important}
+.sh{display:flex;gap:12px;align-items:center;flex:1 1 auto;min-width:0}
+.sh img.sk,summary img.sk{height:56px;width:auto;flex:none;vertical-align:middle}
+.sh h2{margin:0}
+.hint{color:var(--muted);font-size:.85rem;font-weight:400}
+summary .hint{display:block;margin-left:68px;margin-top:-6px}
+details.sec>summary{display:flex;align-items:center;gap:12px;font-size:1.05rem}
+.bar .sh{flex-basis:100%}
+.grp{flex:1 1 300px;display:flex;flex-direction:column;gap:8px;min-width:0;background:var(--bg);border-radius:10px;padding:10px 12px}
+.gt{font-weight:700}
+.gh{font-size:.82rem;color:var(--muted);margin-top:-4px}
+.guide li{margin:.35em 0}
+.guide b.k{color:var(--accent)}
+
 </style>
 
 <img id="stk" class="stk" alt="" hidden>
@@ -103,48 +122,80 @@ details.panel>summary::before{background-image:url(assets/ic_dict.webp)}
     <p class="lead">วางข้อความภาษาไทยที่จะเอาไปแปลงเป็นเสียง ไม่ว่าจะเป็นนิยาย สคริปต์คลิป ข่าว หรือโฆษณา ระบบเว้นวรรคตามวลี ไฮไลต์คำที่เสียง AI มักอ่านผิด แปลงตัวเลข วันที่ เวลา เบอร์โทร และคำย่อเป็นคำอ่าน แล้วจัดช่องว่างให้ลื่น ทำงานในเบราว์เซอร์ ข้อความไม่ถูกส่งไปที่ไหน เครื่องมือนี้ไม่แปลภาษาและไม่สร้างเสียง ให้แปลมาก่อนแล้วเอาผลลัพธ์ไปใส่เว็บแปลงเสียงที่คุณใช้</p>
     </div></div>
   </header>
+  <div class="steps" aria-label="วิธีใช้ 3 ขั้น">
+    <div class="step"><img src="assets/st_typing.webp" alt=""><div><b class="t"><span class="n">1</span>วางข้อความ</b><span class="d">วางหรือพิมพ์ในช่อง "ข้อความต้นฉบับ" หรือกดปุ่มตัวอย่าง</span></div></div>
+    <div class="step"><img src="assets/st_speaker.webp" alt=""><div><b class="t"><span class="n">2</span>ปล่อยให้ระบบจัดให้</b><span class="d">ไม่ต้องแตะการตั้งค่าก็ใช้ได้ ปรับทีหลังถ้าอยากละเอียดขึ้น</span></div></div>
+    <div class="step"><img src="assets/st_thumbs.webp" alt=""><div><b class="t"><span class="n">3</span>คัดลอกผลลัพธ์</b><span class="d">กด "คัดลอกทั้งหมด" ที่<b>ช่องขวา</b> แล้วไปวางในเว็บแปลงเสียง</span></div></div>
+  </div>
+  <details class="panel guide" style="gap:6px">
+    <summary>ไกด์: แต่ละส่วนทำอะไร (กดเพื่อเปิดอ่าน)</summary>
+    <ul style="margin:6px 0 0;padding-left:1.2em">
+      <li><b class="k">ข้อความต้นฉบับ (ซ้าย)</b> ที่วางข้อความของคุณ คำที่มีเส้นประใต้คือคำที่ระบบเห็นว่าเสี่ยงอ่านผิด แถบเหลืองคือคำที่ถูกแทนที่แล้ว กดที่คำเพื่อเปิดหรือปิดการแทนที่</li>
+      <li><b class="k">ข้อความพร้อมส่งเข้าเสียง (ขวา)</b> ผลลัพธ์ที่ปรับแล้ว <b>ต้องคัดลอกจากช่องนี้</b> ไม่ใช่ช่องซ้าย แล้วค่อยนำไปวางที่เว็บแปลงเสียง</li>
+      <li><b class="k">ชุดคำที่ตรวจ</b> เลือกว่าให้ตรวจคำกลุ่มไหน เช่น ข่าว นิยายจีน แบรนด์ ปล่อยติ๊กไว้ทั้งหมดได้ ถ้าไม่ใช่เนื้อหาแนวนั้นก็ติ๊กออกเพื่อไม่ให้แทนคำที่ไม่เกี่ยว</li>
+      <li><b class="k">ตั้งค่า</b> แบ่งเป็น 3 กลุ่ม "การอ่านคำ" (คำสมาส/พูดจริงหรือตามตำรา), "การเว้นวรรคและจังหวะ" (ถี่/ห่าง จังหวะหยุด ตัดบรรทัด) และ "การแปลง" (ตัวเลข วันที่ เวลา คำย่อ) ถ้าเสียงหยุดถี่หรือห่างไปให้ปรับกลุ่มที่สอง</li>
+      <li><b class="k">คำที่พบในข้อความ</b> ตารางสรุปคำที่ถูกแทนที่ ติ๊กออกถ้าคำนั้นเสียงอ่านถูกอยู่แล้ว</li>
+      <li><b class="k">ชื่อและคำเฉพาะ</b> ระบบเดาชื่อตัวละครหรือสถานที่จากคำที่โผล่ซ้ำ กดเพิ่มเข้าพจนานุกรมของฉัน แล้วแก้คำอ่านตามที่ต้องการ</li>
+      <li><b class="k">พจนานุกรมของฉัน</b> พิมพ์บรรทัดละคำในรูปแบบ <code>คำเดิม=คำอ่าน</code> ใช้ก่อนพจนานุกรมหลักเสมอ ควรกด "ส่งออก" เก็บไฟล์ไว้ เพราะข้อมูลอยู่ในเบราว์เซอร์นี้เท่านั้น</li>
+      <li><b class="k">แจ้งคำที่อ่านเพี้ยน</b> ลากเลือกคำที่ผิดในช่องผลลัพธ์ แล้วกดส่งฟอร์ม ช่วยให้พจนานุกรมแม่นขึ้นสำหรับทุกคน</li>
+      <li><b class="k">SSML (ขั้นสูง)</b> ส่วนใหญ่ไม่ต้องใช้ เปิดเมื่อเว็บแปลงเสียงของคุณรองรับแท็กหยุดเสียงเท่านั้น</li>
+    </ul>
+  </details>
   <div class="warn"><b>ยังไม่ได้ทดสอบกับเสียงจริง</b> คำเสี่ยงสูง (คำสมาส ศัพท์นิยาย แบรนด์) ถูกแทนที่ให้อัตโนมัติแล้ว ถ้าฟังแล้วคำไหนเสียงอ่านถูกอยู่แล้ว ให้กดที่คำไฮไลต์หรือติ๊กออกในตาราง "คำที่พบในข้อความ" หรือกด "ปิดทั้งหมด" ถ้าฟังแล้วดีกว่าเดิมค่อยเก็บคำนั้นไว้ในพจนานุกรมของฉัน</div>
 
-  <div class="bar" role="group" aria-label="ชุดพจนานุกรม">
-    <b>ชุดคำที่ตรวจ:</b>
+  <div class="bar sec" style="--c:#0ea5e9" role="group" aria-label="ชุดพจนานุกรม">
+    <div class="sh"><img class="sk" src="assets/st_check.webp" alt=""><div><b>เลือกชุดคำที่ตรวจ</b><div class="hint">ติ๊กไว้ทั้งหมดได้ ติ๊กออกถ้าเนื้อหาไม่เกี่ยวกับกลุ่มนั้น</div></div></div>
     <label><input type="checkbox" id="pkg" checked> ทั่วไป (คำสมาส อักษรนำ)</label>
     <label><input type="checkbox" id="pkw" checked> ข่าว การเงิน ราชการ (เดือน ศัพท์ทางการ)</label>
     <label><input type="checkbox" id="pkb" checked> แบรนด์และเทคโนโลยี (YouTube, AI)</label>
     <label><input type="checkbox" id="pkn" checked> นิยายจีน เกาหลี ญี่ปุ่น ตะวันตก</label>
   </div>
-  <div class="bar" role="group" aria-label="ตั้งค่า">
-    <label><input type="checkbox" id="optLex" checked> ใช้พจนานุกรมคำเสี่ยง</label>
-    <label>คำอ่านของคำสมาส <select id="readMode"><option value="say">แบบพูดจริง (แพด สาด)</option><option value="book">แบบตำรา (แพด ทะ ยะ สาด)</option></select></label>
-    <label>คั่นพยางค์ <select id="sepMode"><option value="sp">เว้นวรรค (แพด สาด)</option><option value="join">เขียนติดกัน (แพดสาด)</option></select></label>
-    <label><input type="checkbox" id="optClean" checked> ล้างอีโมจิ ลิงก์ และเครื่องหมายมาร์กดาวน์</label>
-    <label><input type="checkbox" id="optSpace" checked> เว้นวรรคตามวลี ความถี่ <select id="spaceLvl"><option value="auto" selected>อัตโนมัติ (แนะนำ)</option><option value="12">ถี่</option><option value="20">กลาง</option><option value="32">ห่าง</option></select></label>
-    <label><input type="checkbox" id="optNum" checked> แปลงตัวเลขเป็นคำอ่าน</label>
-    <label><input type="checkbox" id="optMai" checked> แปลงไม้ยมก (ๆ) เป็นคำซ้ำ</label>
-    <label>คั่นเมื่อคำซ้ำชนคำถัดไป (ดังๆ ดังขึ้น) <select id="maiGap"><option value="comma" selected>ใส่จุลภาค (,) แนะนำ</option><option value="sp">เว้น 2 ช่อง</option></select></label>
-    <label><input type="checkbox" id="optAbbr" checked> ขยายคำย่อ วันที่ เวลา เบอร์โทร</label>
-    <label><input type="checkbox" id="optPause" checked> จัดจังหวะ (… — และเส้นคั่นฉาก)</label>
-    <label><input type="checkbox" id="optPara" checked> เว้นบรรทัดว่างระหว่างย่อหน้า</label>
-    <label><input type="checkbox" id="optWrap"> ตัดบรรทัดยาวเกิน <input type="number" id="wrapN" value="300" min="80" max="2000"> ตัวอักษร</label>
-    <label><input type="checkbox" id="optChunk"> แบ่งเป็นก้อนละไม่เกิน <input type="number" id="chunkN" value="3000" min="200" max="100000"> ตัวอักษร</label>
+  <div class="bar sec" style="--c:#f59e0b" role="group" aria-label="ตั้งค่า">
+    <div class="sh"><img class="sk" src="assets/st_speaker.webp" alt=""><div><b>ตั้งค่าการอ่านและการเว้นวรรค</b><div class="hint">ค่าเริ่มต้นใช้ได้เลย ปรับเมื่อฟังแล้วอยากให้ต่างออกไป</div></div></div>
+    <div class="grp">
+      <div class="gt">การอ่านคำ</div><div class="gh">ทำให้คำยากอ่านถูก</div>
+      <label><input type="checkbox" id="optLex" checked> ใช้พจนานุกรมคำเสี่ยง</label>
+      <label>คำอ่านของคำสมาส <select id="readMode"><option value="say">แบบพูดจริง (แพด สาด)</option><option value="book">แบบตำรา (แพด ทะ ยะ สาด)</option></select></label>
+      <label>คั่นพยางค์ <select id="sepMode"><option value="sp">เว้นวรรค (แพด สาด)</option><option value="join">เขียนติดกัน (แพดสาด)</option></select></label>
+    </div>
+    <div class="grp">
+      <div class="gt">การเว้นวรรคและจังหวะ</div><div class="gh">ควบคุมว่าเสียงหยุดถี่หรือห่างแค่ไหน</div>
+      <label><input type="checkbox" id="optSpace" checked> เว้นวรรคตามวลี ความถี่ <select id="spaceLvl"><option value="auto" selected>อัตโนมัติ (แนะนำ)</option><option value="12">ถี่</option><option value="20">กลาง</option><option value="32">ห่าง</option></select></label>
+      <label><input type="checkbox" id="optPause" checked> จัดจังหวะ (… — และเส้นคั่นฉาก)</label>
+      <label><input type="checkbox" id="optPara" checked> เว้นบรรทัดว่างระหว่างย่อหน้า</label>
+      <label><input type="checkbox" id="optMai" checked> แปลงไม้ยมก (ๆ) เป็นคำซ้ำ</label>
+      <label>คั่นเมื่อคำซ้ำชนคำถัดไป (ดังๆ ดังขึ้น) <select id="maiGap"><option value="comma" selected>ใส่จุลภาค (,) แนะนำ</option><option value="sp">เว้น 2 ช่อง</option></select></label>
+      <label><input type="checkbox" id="optWrap"> ตัดบรรทัดยาวเกิน <input type="number" id="wrapN" value="300" min="80" max="2000"> ตัวอักษร</label>
+      <label><input type="checkbox" id="optChunk"> แบ่งเป็นก้อนละไม่เกิน <input type="number" id="chunkN" value="3000" min="200" max="100000"> ตัวอักษร</label>
+    </div>
+    <div class="grp">
+      <div class="gt">การแปลง</div><div class="gh">เปลี่ยนสิ่งที่เสียงอ่านยากให้เป็นคำอ่าน</div>
+      <label><input type="checkbox" id="optNum" checked> แปลงตัวเลขเป็นคำอ่าน</label>
+      <label><input type="checkbox" id="optAbbr" checked> ขยายคำย่อ วันที่ เวลา เบอร์โทร</label>
+      <label><input type="checkbox" id="optClean" checked> ล้างอีโมจิ ลิงก์ และเครื่องหมายมาร์กดาวน์</label>
+    </div>
   </div>
-  <div class="bar" role="group" aria-label="ส่งออก SSML">
+  <details class="panel sec" style="--c:#8b5cf6;gap:6px">
+    <summary><img class="sk" src="assets/st_sleep.webp" alt=""><span>ขั้นสูง: ส่งออกเป็น SSML<span class="hint" style="display:block;margin:0">ส่วนใหญ่ไม่ต้องใช้ เปิดเมื่อเว็บแปลงเสียงรองรับเท่านั้น</span></span></summary>
+    <div class="bar" style="border:0;padding:8px 0 0;background:none">
     <label><input type="checkbox" id="optSsml"> ส่งออกเป็น SSML (ใส่ช่วงหยุดให้เอนจินที่รองรับ เช่น Azure)</label>
     <label>เสียง <select id="voice"><option value="th-TH-PremwadeeNeural">Premwadee (หญิง)</option><option value="th-TH-NiwatNeural">Niwat (ชาย)</option></select></label>
     <label>หยุดระหว่างย่อหน้า <input type="number" id="pauseP" value="500" min="0" max="5000" step="100"> มิลลิวินาที</label>
     <label>หยุดเปลี่ยนฉาก <input type="number" id="pauseS" value="1200" min="0" max="5000" step="100"> มิลลิวินาที</label>
     <span class="small" style="flex-basis:100%">SSML ใช้ได้เฉพาะเว็บหรือเอนจินที่รองรับ ถ้าวางแล้วเสียงอ่านแท็กออกมาเป็นตัวหนังสือ ให้ปิดตัวเลือกนี้ ผมยังไม่ได้ทดสอบกับเว็บแปลงเสียงใดเลย ลองวางย่อหน้าสั้นๆ ก่อน</span>
-  </div>
+    </div>
+  </details>
 
   <div class="grid">
-    <section class="panel" aria-labelledby="hIn">
-      <div class="row"><h2 id="hIn">ข้อความต้นฉบับ</h2><span class="small" id="inCount"></span></div>
+    <section class="panel sec" style="--c:#14b8a6" aria-labelledby="hIn">
+      <div class="row"><div class="sh"><img class="sk" src="assets/st_typing.webp" alt=""><div><h2 id="hIn">1. ข้อความต้นฉบับ</h2><div class="hint">วางข้อความของคุณที่นี่</div></div></div><span class="small" id="inCount"></span></div>
       <textarea id="src" spellcheck="false" aria-label="ข้อความนิยายต้นฉบับ"></textarea>
       <div class="row"><span class="small">ไฮไลต์ในข้อความ: เส้นประคือพบคำเสี่ยงแต่ยังไม่แทนที่ แถบเหลืองคือคำที่ถูกแทนที่แล้ว กดที่คำเพื่อเปิด/ปิด</span><span><button id="sample">ตัวอย่างนิยาย</button> <button id="sample2">ตัวอย่างสคริปต์</button></span></div>
       <div class="view" id="view" aria-live="polite"></div>
     </section>
 
-    <section class="panel" aria-labelledby="hOut">
-      <div class="row"><h2 id="hOut">ข้อความพร้อมส่งเข้าเสียง</h2><span class="small" id="outCount"></span></div>
+    <section class="panel sec" style="--c:#22c55e" aria-labelledby="hOut">
+      <div class="row"><div class="sh"><img class="sk" src="assets/st_thumbs.webp" alt=""><div><h2 id="hOut">2. ข้อความพร้อมส่งเข้าเสียง</h2><div class="hint">ผลลัพธ์ ให้คัดลอกจากช่องนี้</div></div></div><span class="small" id="outCount"></span></div>
       <div class="empty" id="emptyOut" hidden><img src="assets/st_sleep.webp" alt="" width="72" height="62"><span>ยังไม่มีข้อความ วางหรือพิมพ์ทางซ้ายได้เลย</span></div>
       <textarea id="out" spellcheck="false" readonly aria-label="ผลลัพธ์"></textarea>
       <div class="row"><span class="small" id="stat"></span><button class="primary" id="copy">คัดลอกทั้งหมด</button></div>
@@ -152,8 +203,8 @@ details.panel>summary::before{background-image:url(assets/ic_dict.webp)}
     </section>
   </div>
 
-  <section class="panel" aria-labelledby="hFound">
-    <div class="row"><h2 id="hFound">คำที่พบในข้อความ</h2><span class="row"><button id="allHi" title="เปิดเฉพาะคำสมาส ศัพท์นิยาย และแบรนด์ คำสามัญอย่าง ประเทศ สนุก ไม่เปิดให้ เพราะเสียงมักอ่านถูกอยู่แล้ว">เปิดคำเสี่ยงสูง</button><button id="allOff">ปิดทั้งหมด</button></span></div>
+  <section class="panel sec" style="--c:#a855f7" aria-labelledby="hFound">
+    <div class="row"><div class="sh"><img class="sk" src="assets/st_perfect.webp" alt=""><div><h2 id="hFound">คำที่พบในข้อความ</h2><div class="hint">ติ๊กออกถ้าคำนั้นเสียงอ่านถูกอยู่แล้ว</div></div></div><span class="row"><button id="allHi" title="เปิดเฉพาะคำสมาส ศัพท์นิยาย และแบรนด์ คำสามัญอย่าง ประเทศ สนุก ไม่เปิดให้ เพราะเสียงมักอ่านถูกอยู่แล้ว">เปิดคำเสี่ยงสูง</button><button id="allOff">ปิดทั้งหมด</button></span></div>
     <div class="tw"><table>
       <thead><tr><th></th><th>คำ</th><th>จะอ่านเป็น</th><th>พบ</th><th>ระดับ</th></tr></thead>
       <tbody id="found"></tbody>
@@ -161,15 +212,15 @@ details.panel>summary::before{background-image:url(assets/ic_dict.webp)}
     <p class="small" id="foundEmpty" hidden>ยังไม่พบคำในพจนานุกรม</p>
   </section>
 
-  <section class="panel" aria-labelledby="hNames">
-    <div class="row"><h2 id="hNames">ชื่อและคำเฉพาะที่น่าจะเป็นชื่อ</h2><label class="small">พบซ้ำอย่างน้อย <input type="number" id="nameMin" value="4" min="2" max="50" style="width:4.5em"> ครั้ง</label></div>
+  <section class="panel sec" style="--c:#3b82f6" aria-labelledby="hNames">
+    <div class="row"><div class="sh"><img class="sk" src="assets/st_love.webp" alt=""><div><h2 id="hNames">ชื่อและคำเฉพาะที่น่าจะเป็นชื่อ</h2><div class="hint">ชื่อตัวละคร ชื่อสถานที่ ที่ระบบเดาให้</div></div></div><label class="small">พบซ้ำอย่างน้อย <input type="number" id="nameMin" value="4" min="2" max="50" style="width:4.5em"> ครั้ง</label></div>
     <p class="small">ระบบเดาจากคำที่โผล่ซ้ำบ่อยและไม่อยู่ในพจนานุกรม เช่น ชื่อตัวละคร ชื่อแบรนด์ หรือชื่อสถานที่ มีคำธรรมดาปนมาได้ ดูก่อนกดเพิ่ม กดเพิ่มแล้วคำจะไปอยู่ในพจนานุกรมของฉัน ให้แก้ด้านขวาของเครื่องหมาย = เป็นคำอ่านที่ต้องการ</p>
     <div class="tw"><table><thead><tr><th>คำ</th><th>พบ</th><th></th></tr></thead><tbody id="names"></tbody></table></div>
     <p class="small" id="namesEmpty" hidden>ยังไม่พบคำที่ซ้ำพอ ลองวางข้อความให้ยาวขึ้น หรือลดจำนวนครั้ง</p>
   </section>
 
-  <details class="panel" open>
-    <summary>พจนานุกรมของฉัน (ชื่อตัวละคร ชื่อแบรนด์ และคำเฉพาะของงาน)</summary>
+  <details class="panel sec" style="--c:#ec4899" open>
+    <summary><img class="sk" src="assets/mascot.webp" alt=""><span>พจนานุกรมของฉัน<span class="hint" style="display:block;margin:0">ชื่อตัวละคร แบรนด์ และคำเฉพาะของงานคุณ เก็บในเบราว์เซอร์นี้</span></span></summary>
     <div class="row" style="justify-content:flex-start"><label>ชุดที่ใช้ <select id="prof"></select></label>
       <input type="text" id="profName" placeholder="ชื่อชุดใหม่ เช่น เรื่อง ตำนานผนึกฟ้า" style="flex:1;min-width:10em;font:inherit;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)" aria-label="ชื่อชุดใหม่">
       <button id="profNew" type="button">สร้างชุด</button><button id="profDel" type="button">ลบชุดนี้</button></div>
@@ -179,8 +230,8 @@ details.panel>summary::before{background-image:url(assets/ic_dict.webp)}
     <div class="small msg" id="dictMsg" role="status"></div>
     <textarea id="mine" style="min-height:120px" spellcheck="false" aria-label="พจนานุกรมของฉัน">ออมสิน=ออม สิน</textarea>
   </details>
-  <details class="panel" id="fbPanel">
-    <summary>แจ้งคำที่อ่านเพี้ยน หรือเว้นวรรคแปลก</summary>
+  <details class="panel sec" style="--c:#f97316" id="fbPanel">
+    <summary><img class="sk" src="assets/st_party.webp" alt=""><span>แจ้งคำที่อ่านเพี้ยน หรือเว้นวรรคแปลก<span class="hint" style="display:block;margin:0">ช่วยกันทำให้แม่นขึ้น ไม่ส่งอะไรเองเลย</span></span></summary>
     <p class="small">ดูคำที่รวบรวมไว้ทั้งหมดได้ที่ <a href="words.html">รายการคำที่ AI อ่านผิดบ่อย</a> ช่วยกันทำให้แม่นขึ้น เลือกข้อความสั้นๆ ในช่องผลลัพธ์ (ลากคลุมคำหรือประโยคที่มีปัญหา) แล้วกด "ใช้ข้อความที่เลือก" ระบบจะ<b>ไม่ส่งอะไรเองเลย</b> ต้องกดคัดลอกหรือกดส่งเองทุกครั้ง และส่งเฉพาะที่คุณเห็นในช่องนี้ ไม่ส่งเนื้อหาทั้งเรื่อง</p>
     <div class="row" style="justify-content:flex-start">
       <label>ปัญหา <select id="fbType"><option>คำอ่านเพี้ยน</option><option>เว้นวรรคแปลก</option><option>เว้นวรรคนานเกินไป</option><option>เว้นวรรคถี่เกินไป</option><option>อื่นๆ</option></select></label>

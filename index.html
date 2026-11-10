@@ -1,7 +1,10 @@
 <!doctype html>
 <html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>อ่านเป๊ะ Arnpe</title>
-<meta name="description" content="อ่านเป๊ะ Arnpe ตัวช่วยเตรียมข้อความไทยก่อนแปลงเสียง เว้นวรรคให้ แก้คำอ่านผิด ใช้ฟรี">
+<meta name="description" content="อ่านเป๊ะ Arnpe ตัวช่วยเตรียมข้อความไทยก่อนแปลงเสียง AI เว้นวรรคตามวลี แก้คำที่เสียงอ่านผิด แปลงตัวเลข วันที่ เวลา ใช้ฟรี ทำงานในเบราว์เซอร์">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/logo-32.png">
+<link rel="apple-touch-icon" href="assets/logo-180.png">
+<meta property="og:title" content="อ่านเป๊ะ Arnpe"><meta property="og:description" content="ตัวช่วยเตรียมข้อความไทยก่อนแปลงเสียง AI"><meta property="og:image" content="assets/logo-512.png">
 </head><body>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -9,18 +12,18 @@
 <style>
 /* Layout: เครื่องมือสองฝั่ง ซ้ายวาง/ตรวจข้อความ ขวาผลลัพธ์ พร้อมแถบตั้งค่าด้านบน */
 :root{
-  --bg:#f2f5f7; --panel:#ffffff; --ink:#13222c; --muted:#5a6b76; --line:#d6dee4;
+  --bgimg:url(assets/bg-light.webp);--veil:rgba(242,245,247,.30);--bg:#f2f5f7; --panel:#ffffff; --ink:#13222c; --muted:#5a6b76; --line:#d6dee4;
   --accent:#0f766e; --accent-ink:#ffffff; --hl:#ffe08a; --hl-ink:#3d2e00; --off:#8a97a0;
   --warn-bg:#fff4e0; --warn-ink:#6b4400;
   --font-head:"Prompt","Noto Sans Thai",system-ui,sans-serif;
   --font-body:"Noto Sans Thai",system-ui,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0f1a21; --panel:#16252e; --ink:#e6eef2; --muted:#9db0bb; --line:#2a3d49;
+  --bgimg:url(assets/bg-dark.webp);--veil:rgba(15,26,33,.30);--bg:#0f1a21; --panel:#16252e; --ink:#e6eef2; --muted:#9db0bb; --line:#2a3d49;
   --accent:#2dd4bf; --accent-ink:#06211e; --hl:#7a5c00; --hl-ink:#ffeebb; --off:#7d909b;
   --warn-bg:#33270f; --warn-ink:#f3d9a4; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0f1a21; --panel:#16252e; --ink:#e6eef2; --muted:#9db0bb; --line:#2a3d49;
+  --bgimg:url(assets/bg-dark.webp);--veil:rgba(15,26,33,.30);--bg:#0f1a21; --panel:#16252e; --ink:#e6eef2; --muted:#9db0bb; --line:#2a3d49;
   --accent:#2dd4bf; --accent-ink:#06211e; --hl:#7a5c00; --hl-ink:#ffeebb; --off:#7d909b;
   --warn-bg:#33270f; --warn-ink:#f3d9a4; color-scheme:dark}
 *{box-sizing:border-box}
@@ -54,14 +57,38 @@ th{font-weight:600;color:var(--muted)}
 .tag{display:inline-block;font-size:.75rem;border:1px solid var(--line);border-radius:999px;padding:0 8px;color:var(--muted)}
 .tag.hi{border-color:var(--accent);color:var(--accent)}
 details summary{cursor:pointer;font-weight:600}
+
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(var(--veil),var(--veil)),var(--bgimg) center/cover no-repeat,var(--bg)}
+.brand{display:flex;gap:14px;align-items:flex-start}
+.brand img.mascot{width:84px;height:auto;flex:none;filter:drop-shadow(0 3px 6px rgba(15,118,110,.25))}
+.brand .lead{margin-top:4px}
+#copy::before,#sample::before,#sample2::before,#allHi::before,#profNew::before,#profDel::before,#hNames::before,details>summary::before,#hFound::before{content:"";display:inline-block;width:18px;height:18px;margin-right:6px;vertical-align:-4px;background:center/contain no-repeat}
+#copy::before{background-image:url(assets/ic_copy.webp)}
+#sample::before,#sample2::before{background-image:url(assets/ic_sample.webp)}
+#allHi::before,#hFound::before{background-image:url(assets/ic_settings.webp)}
+#profNew::before{background-image:url(assets/ic_paste.webp)}
+#profDel::before{background-image:url(assets/ic_clear.webp)}
+#hNames::before{background-image:url(assets/ic_names.webp)}
+details>summary::before{background-image:url(assets/ic_dict.webp)}
+.stk{position:fixed;right:16px;bottom:16px;width:132px;height:auto;z-index:5;pointer-events:none;animation:pop .35s ease-out}
+.stk[hidden]{display:none}
+@keyframes pop{from{transform:scale(.5) rotate(-8deg);opacity:0}to{transform:none;opacity:1}}
+.empty{display:flex;align-items:center;gap:12px;color:var(--muted);padding:6px 2px}
+.empty[hidden]{display:none}
+.empty img{width:72px;height:auto}
+@media (prefers-reduced-motion:reduce){.stk{animation:none}}
+@media(max-width:520px){.brand img.mascot{width:60px}}
 </style>
 
+<img id="stk" class="stk" alt="" hidden>
 <div class="wrap">
   <header>
+    <div class="brand"><img class="mascot" src="assets/mascot.webp" alt="มาสคอตอ่านเป๊ะ ก้อนเมฆใส่หูฟัง" width="84" height="80"><div>
     <h1>อ่านเป๊ะ <span style="font:700 1rem var(--font-body);color:var(--muted)">Arnpe</span> <span style="font:500 .95rem var(--font-body);color:var(--muted)">ตัวช่วยเตรียมข้อความไทยก่อนแปลงเสียง</span></h1>
     <p class="lead">วางข้อความภาษาไทยที่จะเอาไปแปลงเป็นเสียง ไม่ว่าจะเป็นนิยาย สคริปต์คลิป ข่าว หรือโฆษณา ระบบเว้นวรรคตามวลี ไฮไลต์คำที่เสียง AI มักอ่านผิด แปลงตัวเลข วันที่ เวลา เบอร์โทร และคำย่อเป็นคำอ่าน แล้วจัดช่องว่างให้ลื่น ทำงานในเบราว์เซอร์ ข้อความไม่ถูกส่งไปที่ไหน เครื่องมือนี้ไม่แปลภาษาและไม่สร้างเสียง ให้แปลมาก่อนแล้วเอาผลลัพธ์ไปใส่เว็บแปลงเสียงที่คุณใช้</p>
+    </div></div>
   </header>
-  <div class="warn"><b>ยังไม่ได้ทดสอบกับเสียงจริง</b> คำอ่านในพจนานุกรมรวบรวมจากแหล่งความรู้ภาษาไทยและงานวิจัย ไม่ได้มาจากการฟังเอนจิน จึงไฮไลต์ไว้ให้ดูก่อน ยังไม่แทนที่ให้เอง เปิดทีละคำ หรือกด "เปิดคำมั่นใจสูง" แล้วลองฟังเฉพาะย่อหน้าที่มีคำนั้น ถ้าฟังแล้วดีกว่าเดิมค่อยเก็บไว้ในพจนานุกรมของฉัน</div>
+  <div class="warn"><b>ยังไม่ได้ทดสอบกับเสียงจริง</b> คำอ่านในพจนานุกรมรวบรวมจากแหล่งความรู้ภาษาไทยและงานวิจัย ไม่ได้มาจากการฟังเอนจิน จึงไฮไลต์ไว้ให้ดูก่อน ยังไม่แทนที่ให้เอง เปิดทีละคำ หรือกด "เปิดคำเสี่ยงสูง" แล้วลองฟังเฉพาะย่อหน้าที่มีคำนั้น ถ้าฟังแล้วดีกว่าเดิมค่อยเก็บไว้ในพจนานุกรมของฉัน</div>
 
   <div class="bar" role="group" aria-label="ชุดพจนานุกรม">
     <b>ชุดคำที่ตรวจ:</b>
@@ -100,6 +127,7 @@ details summary{cursor:pointer;font-weight:600}
 
     <section class="panel" aria-labelledby="hOut">
       <div class="row"><h2 id="hOut">ข้อความพร้อมส่งเข้าเสียง</h2><span class="small" id="outCount"></span></div>
+      <div class="empty" id="emptyOut" hidden><img src="assets/st_sleep.webp" alt="" width="72" height="62"><span>ยังไม่มีข้อความ วางหรือพิมพ์ทางซ้ายได้เลย</span></div>
       <textarea id="out" spellcheck="false" readonly aria-label="ผลลัพธ์"></textarea>
       <div class="row"><span class="small" id="stat"></span><button class="primary" id="copy">คัดลอกทั้งหมด</button></div>
       <div id="chunks" class="small"></div>
@@ -379,7 +407,7 @@ function process(){
   const built = buildOutput(out);
   out = built.text;
   renderChunks(built.chunks);
-  $('out').value = out;
+  $('out').value = out; $('emptyOut').hidden = !!src.trim();
   $('outCount').textContent = out.length.toLocaleString('en-US') + ' ตัวอักษร';
   $('stat').textContent = 'แทนที่คำ ' + applied + ' · ตัวเลข/เวลา ' + st.num + ' · ไม้ยมก ' + st.mai + ' · คำย่อ/วันที่ ' + st.abbr + (st.clean ? ' · ล้าง ' + st.clean : '');
 
@@ -403,9 +431,10 @@ $('found').addEventListener('change', ev => { const c = ev.target.closest('input
 $('allHi').addEventListener('click', () => { entries().forEach(e => { if (!e.mine) enabled.set(e.w, !!e.a); }); process(); });
 $('allOff').addEventListener('click', () => { entries().forEach(e => { if (!e.mine) enabled.set(e.w, false); }); process(); });
 $('sample').addEventListener('click', () => { $('src').value = SAMPLE; process(); });
+let stkT; function showStk(n){ const s = $('stk'); s.src = 'assets/' + n + '.webp'; s.hidden = false; clearTimeout(stkT); stkT = setTimeout(() => s.hidden = true, 1800); }
 $('copy').addEventListener('click', async () => {
   const b = $('copy'), t = $('out').value;
-  try { await navigator.clipboard.writeText(t); b.textContent = 'คัดลอกแล้ว'; }
+  try { await navigator.clipboard.writeText(t); b.textContent = 'คัดลอกแล้ว'; showStk(t.trim() ? 'st_thumbs' : 'st_sleep'); }
   catch (e) { $('out').focus(); $('out').select(); b.textContent = 'เลือกข้อความแล้ว กด คัดลอก ในเมนู'; }
   setTimeout(() => b.textContent = 'คัดลอกทั้งหมด', 2000);
 });
